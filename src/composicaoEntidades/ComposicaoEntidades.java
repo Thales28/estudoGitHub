@@ -20,8 +20,6 @@ public class ComposicaoEntidades {
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
-		
 		System.out.println("Enter client data: ");
 		System.out.print("Name: ");
 		String name = sc.nextLine();
@@ -75,5 +73,7 @@ public class ComposicaoEntidades {
 			System.out.println(x);
 		}
 		System.out.println("Total price: $" + String.format("%.2f", order.total()));
+		
+		sc.close();
 	}
 }

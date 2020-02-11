@@ -64,5 +64,6 @@ public class ExercicioHerancaProduct {
 		for (Product product : productList) {
 			System.out.println(product.priceTag());
 		}
+		sc.close();
 	}
 }
