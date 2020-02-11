@@ -2,8 +2,8 @@ package entities;
 
 public class Product {
 
-	private String name;
-	private double price;
+	protected String name;
+	protected double price;
 	private int quantity;
 	
 	public Product () {
@@ -56,9 +56,14 @@ public class Product {
 			quantity = 0;
 		}
 	}
-
+	
+	@Override
 	public String toString() {
 		return name + ", $" + String.format("%.2f", price) + ", " + quantity + " units, Total: $"
 				+ String.format("%.2f", totalValueInStock());
+	}
+	
+	public String priceTag() {
+		return name + " $" + String.format("%.2f", price);
 	}
 }
