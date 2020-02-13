@@ -1,52 +1,96 @@
 package entities;
 
 public class Account {
-	private int accountNumber;
-	private String userName;
-	private double value;
+	private int number;
+	private String holder;
+	private double balance;
+	private double withdrawLimit;
 	
-	public Account(int accountNumber, String userName) {
-		this.accountNumber = accountNumber;
-		this.userName = userName;
+	public Account(int number, String holder) {
+		this.number = number;
+		this.holder = holder;
+		this.withdrawLimit = 99999.99;
 	}
 	
-	public Account(int accountNumber, String userName, double value) {
-		this.accountNumber = accountNumber;
-		this.userName = userName;
-		deposit(value);
+	public Account(int number, String holder, double balance) throws Exception {
+		if(balance < 0) {
+			throw new Exception ("Negative balance");
+		}
+		this.number = number;
+		this.holder = holder;
+		deposit(balance);
+		this.withdrawLimit = 99999.99;
 	}
 
-	public int getAccountNumber() {
-		return accountNumber;
+	public Account (int number, String holder, double balance, double withdrawLimit) throws Exception {
+		if(balance < 0) {
+			throw new Exception ("Negative balance");
+		}
+		if(withdrawLimit < 0) {
+			throw new Exception ("Negative withdraw limit");
+		}
+		this.number = number;
+		this.holder = holder;
+		deposit(balance);
+		this.withdrawLimit = withdrawLimit;
+	}
+	
+	public int getNumber() {
+		return number;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getHolder() {
+		return holder;
 	}
 	
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setHolder(String holder) {
+		this.holder = holder;
 	}
 
-	public double getValue() {
-		return value;
+	public double getBalance() {
+		return balance;
 	}
 	
-	public void deposit(double value) {
-		this.value += value;
+	public double getWithdrawLimit() {
+		return withdrawLimit;
 	}
 	
-	public void withdraw(double value) {
-		this.value -= value + 5;
+	public void setWithdrawLimit(double withdrawLimit) throws Exception {
+		if(withdrawLimit < 0) {
+			throw new Exception ("Negative withdraw limit");
+		}
+		this.withdrawLimit = withdrawLimit;
+	}
+	
+	public void deposit(double value) throws Exception {
+		if(value < 0) {
+			throw new Exception ("Negative value");
+		}
+		this.balance += value;
+	}
+	
+	public void withdraw(double value) throws Exception {
+		if(value < 0) {
+			throw new Exception ("Negative value");
+		}
+
+		else if (value > withdrawLimit) {
+			throw new Exception("Withdraw error: The amount exceeds withdraw limit");
+		}
+		
+		else if(value > balance) {
+			throw new Exception("Withdraw error: Not enough balance");
+		}
+		this.balance -= value;
 	}
 	
 	public String toString() {
 		return "Account "
-				+ getAccountNumber()
+				+ getNumber()
 				+ ", Holder: "
-				+ getUserName()
+				+ getHolder()
 				+ ", Balance: $"
-				+ String.format("%.2f", getValue());
+				+ String.format("%.2f", getBalance());
 
 	}
 }
